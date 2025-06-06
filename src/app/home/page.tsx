@@ -52,7 +52,7 @@ export default function Home() {
 
   const buscarAlertas = async () => {
     try {
-      const response = await fetch("http://localhost:8080/alerta/listar");
+      const response = await fetch("https://gs-java-production-9228.up.railway.app/alerta/listar");
       if (!response.ok) throw new Error("Erro ao buscar alertas");
 
       const data = await response.json();
@@ -74,7 +74,7 @@ export default function Home() {
 
   const buscarMissoes = async () => {
     try {
-      const response = await fetch("http://localhost:8080/missao/listar");
+      const response = await fetch("https://gs-java-production-9228.up.railway.app/missao/listar");
       if (!response.ok) throw new Error("Erro ao buscar missões");
 
       const data = await response.json();

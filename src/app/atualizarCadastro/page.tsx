@@ -10,7 +10,7 @@ function obterIdDoToken(token: string): number | null {
     const payloadBase64 = token.split('.')[1];
     const payloadJson = atob(payloadBase64);
     const payload = JSON.parse(payloadJson);
-    return parseInt(payload.sub); // ID do usuário
+    return parseInt(payload.sub);
   } catch (error) {
     console.error("Erro ao decodificar o token:", error);
     return null;
@@ -53,7 +53,7 @@ export default function AtualizarCadastro() {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:8080/usuario/${id}`, {
+      const response = await fetch(`https://gs-java-production-9228.up.railway.app/usuario/${id}`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -95,7 +95,7 @@ export default function AtualizarCadastro() {
     });
 
     try {
-      const response = await fetch(`http://localhost:8080/usuario/${id}`, {
+      const response = await fetch(`https://gs-java-production-9228.up.railway.app/usuario/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

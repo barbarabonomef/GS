@@ -112,7 +112,7 @@ export default function Integrantes() {
           </div>
 
           <a
-            href="https://github.com/barbarabonomef/Sprint-4-Front"
+            href="https://github.com/barbarabonomef/GS"
             target="_blank"
             rel="noreferrer"
             className="flex items-center bg-slate-100 dark:bg-gray-300 px-4 py-2 border-2 border-black rounded-full shadow-md hover:bg-gray-300 transition"

@@ -40,7 +40,7 @@ export default function Login() {
           senha: senha,
         });
 
-        const response = await fetch("http://localhost:8080/usuario/login", {
+        const response = await fetch("https://gs-java-production-9228.up.railway.app/usuario/login", {
           method: "POST",
           body: bodyContent,
           headers: headersList,
@@ -66,8 +66,8 @@ export default function Login() {
 
   return (
     <>
-      <main className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col mt-16 ml-32">
+      <main className="grid grid-cols-1 lg:grid-cols-2 gap-1 p-4">
+        <div className="flex flex-col lg:mt-16 lg:ml-28 lg:mr-0 sm:ml-14 sm:mr-14 md:mr-16 mt-5">
           <h1 className="text-5xl text-cyan-950 font-poppins font-black">
             <span className="text-cyan-950 bg-slate-200 rounded-full pr-4 pl-4 leading-tight">elo:</span>{' '}
             <span className="leading-none dark:text-white">quando cada conexão vira um ato de esperança.</span>
@@ -85,7 +85,7 @@ export default function Login() {
             />
           </div>
         </div>
-        <div className="flex flex-col items-center mt-10 mr-10">
+        <div className="flex flex-col items-center mt-5 lg:mt-10 mr-10">
           <div className="flex justify-center gap-5">
             <button
               onClick={() => selecionarTipo("Voluntário")}

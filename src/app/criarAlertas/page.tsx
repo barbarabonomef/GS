@@ -44,7 +44,7 @@ export default function CriarAlerta() {
     };
 
     try {
-      const resposta = await fetch("http://localhost:8080/alerta/criar", {
+      const resposta = await fetch("https://gs-java-production-9228.up.railway.app/alerta/criar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,8 +12,8 @@ export default function Cadastro() {
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [categoria, setCategoria] = useState(""); // novo campo
-  const [telefone, setTelefone] = useState("");   // novo campo
+  const [categoria, setCategoria] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmaSenha, setConfirmaSenha] = useState("");
 
@@ -34,7 +34,7 @@ export default function Cadastro() {
     });
 
     try {
-      const response = await fetch("http://localhost:8080/usuario/cadastro", {
+      const response = await fetch("https://gs-java-production-9228.up.railway.app/usuario/cadastro", {
         method: "POST",
         body: bodyContent,
         headers: headersList,

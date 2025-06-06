@@ -28,7 +28,7 @@ export default function GerenciarMissao() {
 
   const buscarMissoes = async () => {
     try {
-      const response = await fetch("http://localhost:8080/missao/listar");
+      const response = await fetch("https://gs-java-production-9228.up.railway.app/missao/listar");
       const data = await response.json();
       setMissoes(data);
     } catch (error) {
@@ -70,7 +70,7 @@ export default function GerenciarMissao() {
         organizacao: editandoMissao.organizacao,
       };
 
-      const response = await fetch(`http://localhost:8080/missao/${editandoId}`, {
+      const response = await fetch(`https://gs-java-production-9228.up.railway.app/missao/${editandoId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export default function GerenciarMissao() {
     if (!missaoParaDeletar) return;
 
     try {
-      const response = await fetch(`http://localhost:8080/missao/${missaoParaDeletar}`, {
+      const response = await fetch(`https://gs-java-production-9228.up.railway.app/missao/${missaoParaDeletar}`, {
         method: "DELETE",
       });
 

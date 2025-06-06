@@ -29,7 +29,7 @@ export default function GerenciarAlerta() {
 
   const buscarAlertas = async () => {
     try {
-      const response = await fetch("http://localhost:8080/alerta/listar");
+      const response = await fetch("https://gs-java-production-9228.up.railway.app/alerta/listar");
       const data = await response.json();
 
       const alertasComEstilo = data.map((a: Alerta) => {
@@ -79,7 +79,7 @@ export default function GerenciarAlerta() {
         recomendacao: editandoAlerta.recomendacao,
       };
 
-      const response = await fetch(`http://localhost:8080/alerta/${editandoId}`, {
+      const response = await fetch(`https://gs-java-production-9228.up.railway.app/alerta/${editandoId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export default function GerenciarAlerta() {
     if (!alertaParaDeletar) return;
 
     try {
-      const response = await fetch(`http://localhost:8080/alerta/${alertaParaDeletar}`, {
+      const response = await fetch(`https://gs-java-production-9228.up.railway.app/alerta/${alertaParaDeletar}`, {
         method: "DELETE",
       });
 
