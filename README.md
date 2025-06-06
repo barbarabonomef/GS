@@ -3,7 +3,7 @@ Projeto Elo | Global Solution
 O projeto Elo é uma plataforma digital que conecta líderes comunitários, voluntários e organizações em situações de desastres por enchentes. Ela permite criar alertas para comunicar riscos e necessidades em tempo real, além de organizar missões com tarefas específicas para coordenar a resposta local. Isso facilita a tomada de decisões rápidas, evita esforços duplicados e garante que a ajuda chegue a quem mais precisa.
 
 📹 Pitch: https://youtu.be/5xq0jOWP23o
-🌟 Vercel: 
+🌟 Vercel: https://elo-ashen.vercel.app/
 
 💡 Funcionalidades
     - Recebimento de alertas em tempo real.
@@ -20,7 +20,7 @@ Login: adriano@elo.com
 Senha: 123
 
 Back-end (API em Java)
-👉 
+👉 https://gs-java-production-9228.up.railway.app/
 
 👩‍💻 Desenvolvido pelo Time Acessi:
     📍 Bárbara Bonome Filipus    | RM: 560431 | 1TDSPR
