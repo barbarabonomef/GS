@@ -12,8 +12,6 @@ type Alerta = {
   localizacao: string;
   descricao: string;
   recomendacao?: string;
-  cor?: string;
-  sigla?: string;
 };
 
 type AlertType = "success" | "error";
@@ -31,15 +29,7 @@ export default function GerenciarAlerta() {
     try {
       const response = await fetch("https://gs-java-production-9228.up.railway.app/alerta/listar");
       const data = await response.json();
-
-      const alertasComEstilo = data.map((a: Alerta) => {
-        let cor = "bg-gray-400";
-        let sigla = a.localizacao?.charAt(0)?.toUpperCase() || "?";
-
-        return { ...a, cor, sigla };
-      });
-
-      setAlertas(alertasComEstilo);
+      setAlertas(data);
     } catch (error) {
       setAlert({ type: "error", message: "Erro ao buscar alertas" });
       setAlertas([]);
@@ -92,9 +82,7 @@ export default function GerenciarAlerta() {
       const alertaAtualizado = await response.json();
 
       setAlertas((prev) =>
-        prev.map((a) =>
-          a.id === editandoId ? { ...alertaAtualizado, cor: a.cor, sigla: a.sigla } : a
-        )
+        prev.map((a) => (a.id === editandoId ? alertaAtualizado : a))
       );
 
       setAlert({ type: "success", message: "Alerta atualizado com sucesso!" });
@@ -165,48 +153,47 @@ export default function GerenciarAlerta() {
             key={a.id}
             className="flex items-start bg-gray-100 border-2 border-red-700 dark:bg-slate-800 dark:text-white p-4 rounded-lg shadow-md"
           >
-
             <div className="flex-1">
               {editandoId === a.id ? (
                 <>
-            <div className="mb-2">
-              <p className="text-sm font-semibold">Título</p>
-              <input
-                type="text"
-                value={editandoAlerta?.titulo || ""}
-                onChange={(e) => onChangeEditando("titulo", e.target.value)}
-                className="w-full rounded px-2 py-1 text-black"
-              />
-            </div>
+                  <div className="mb-2">
+                    <p className="text-sm font-semibold">Título</p>
+                    <input
+                      type="text"
+                      value={editandoAlerta?.titulo || ""}
+                      onChange={(e) => onChangeEditando("titulo", e.target.value)}
+                      className="w-full rounded px-2 py-1 text-black"
+                    />
+                  </div>
 
-            <div className="mb-2">
-              <p className="text-sm font-semibold">Localização</p>
-              <input
-                type="text"
-                value={editandoAlerta?.localizacao || ""}
-                onChange={(e) => onChangeEditando("localizacao", e.target.value)}
-                className="w-full rounded px-2 py-1 text-black"
-              />
-            </div>
+                  <div className="mb-2">
+                    <p className="text-sm font-semibold">Localização</p>
+                    <input
+                      type="text"
+                      value={editandoAlerta?.localizacao || ""}
+                      onChange={(e) => onChangeEditando("localizacao", e.target.value)}
+                      className="w-full rounded px-2 py-1 text-black"
+                    />
+                  </div>
 
-            <div className="">
-              <p className="text-sm font-semibold">Descrição</p>
-              <textarea
-                value={editandoAlerta?.descricao || ""}
-                onChange={(e) => onChangeEditando("descricao", e.target.value)}
-                className="w-full rounded px-2 py-1 text-black"
-              />
-            </div>
+                  <div className="">
+                    <p className="text-sm font-semibold">Descrição</p>
+                    <textarea
+                      value={editandoAlerta?.descricao || ""}
+                      onChange={(e) => onChangeEditando("descricao", e.target.value)}
+                      className="w-full rounded px-2 py-1 text-black"
+                    />
+                  </div>
 
-            <div>
-              <p className="text-sm font-semibold">Recomendação</p>
-              <textarea
-                value={editandoAlerta?.recomendacao || ""}
-                onChange={(e) => onChangeEditando("recomendacao", e.target.value)}
-                className="w-full rounded px-2 py-1 text-black"
-              />
-            </div>
-          </>
+                  <div>
+                    <p className="text-sm font-semibold">Recomendação</p>
+                    <textarea
+                      value={editandoAlerta?.recomendacao || ""}
+                      onChange={(e) => onChangeEditando("recomendacao", e.target.value)}
+                      className="w-full rounded px-2 py-1 text-black"
+                    />
+                  </div>
+                </>
               ) : (
                 <>
                   <div>

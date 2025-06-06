@@ -32,12 +32,6 @@ export default function MinhasMissoes() {
     localStorage.setItem("inscricoes", JSON.stringify(novasInscricoes));
   };
 
-  const limpar = () => {
-    localStorage.removeItem("minhasMissoes");
-    localStorage.removeItem("inscricoes");
-    setMinhasMissoes([]);
-  };
-
   return (
     <main className="w-[85%] max-w-7xl mx-auto mb-10">
       <h3 className="text-2xl font-bold mt-10 text-center bg-green-800 dark:bg-green-900 dark:text-white text-white p-1 rounded-xl shadow-md">

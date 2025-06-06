@@ -22,6 +22,23 @@ type Missao = {
   dataCriacaoFormata: string;
 };
 
+type NotificacaoAPI = {
+  id: number;
+  titulo: string;
+  descricao: string;
+  localizacao: string;
+  recomendacao: string;
+};
+
+type MissaoAPI = {
+  id: number;
+  titulo: string;
+  localizacao: string;
+  organizacao: string;
+  descricao: string;
+  dataCriacaoFormata: string;
+};
+
 export default function Home() {
   const router = useRouter();
   const [alertas, setAlertas] = useState<Notificacao[]>([]);
@@ -32,22 +49,22 @@ export default function Home() {
   const [alertMessage, setAlertMessage] = useState("");
 
   const handleInscricao = (id: number) => {
-  if (!inscricoes.includes(id)) {
-    const missaoInscrita = missoes.find((m) => m.id === id);
-    if (missaoInscrita) {
-      const armazenadas = JSON.parse(localStorage.getItem("minhasMissoes") || "[]");
-      armazenadas.push(missaoInscrita);
-      localStorage.setItem("minhasMissoes", JSON.stringify(armazenadas));
+    if (!inscricoes.includes(id)) {
+      const missaoInscrita = missoes.find((m) => m.id === id);
+      if (missaoInscrita) {
+        const armazenadas = JSON.parse(localStorage.getItem("minhasMissoes") || "[]");
+        armazenadas.push(missaoInscrita);
+        localStorage.setItem("minhasMissoes", JSON.stringify(armazenadas));
+      }
+
+      const novasInscricoes = [...inscricoes, id];
+      setInscricoes(novasInscricoes);
+      localStorage.setItem("inscricoes", JSON.stringify(novasInscricoes));
+
+      setAlertMessage("Você se inscreveu com sucesso na missão!");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
     }
-
-    const novasInscricoes = [...inscricoes, id];
-    setInscricoes(novasInscricoes);
-    localStorage.setItem("inscricoes", JSON.stringify(novasInscricoes));
-
-    setAlertMessage("Você se inscreveu com sucesso na missão!");
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000);
-  }
   };
 
   const buscarAlertas = async () => {
@@ -55,9 +72,9 @@ export default function Home() {
       const response = await fetch("https://gs-java-production-9228.up.railway.app/alerta/listar");
       if (!response.ok) throw new Error("Erro ao buscar alertas");
 
-      const data = await response.json();
+      const data: NotificacaoAPI[] = await response.json();
 
-      const alertasMapeados: Notificacao[] = data.map((item: any) => ({
+      const alertasMapeados: Notificacao[] = data.map((item) => ({
         id: item.id,
         titulo: item.titulo,
         localizacao: item.localizacao,
@@ -77,9 +94,9 @@ export default function Home() {
       const response = await fetch("https://gs-java-production-9228.up.railway.app/missao/listar");
       if (!response.ok) throw new Error("Erro ao buscar missões");
 
-      const data = await response.json();
+      const data: MissaoAPI[] = await response.json();
 
-      const missoesMapeadas: Missao[] = data.map((item: any) => ({
+      const missoesMapeadas: Missao[] = data.map((item) => ({
         id: item.id,
         titulo: item.titulo,
         localizacao: item.localizacao,
@@ -95,44 +112,43 @@ export default function Home() {
     }
   };
 
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    router.push("/");
-    return;
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/");
+      return;
+    }
 
-  buscarAlertas();
-  buscarMissoes();
+    buscarAlertas();
+    buscarMissoes();
 
-  const data = new Date();
-  const dataFormatada = data.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-  setDataAtual(dataFormatada);
+    const data = new Date();
+    const dataFormatada = data.toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+    setDataAtual(dataFormatada);
 
-  const inscricoesSalvas = JSON.parse(localStorage.getItem("inscricoes") || "[]");
-  setInscricoes(inscricoesSalvas);
+    const inscricoesSalvas = JSON.parse(localStorage.getItem("inscricoes") || "[]");
+    setInscricoes(inscricoesSalvas);
 
-  document.title = "Home";
+    document.title = "Home";
   }, [router]);
 
   return (
     <main>
       {showAlert && (
-      <AlertMessage
-        type="success"
-        message={alertMessage}
-        onClose={() => setShowAlert(false)}
-      />
-      ) }
+        <AlertMessage
+          type="success"
+          message={alertMessage}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
       <div className="w-[85%] max-w-7xl mx-auto mb-10">
         <h4 className="text-gray-500 dark:text-white mt-4 text-right text-sm">
           Atualizado em {dataAtual}
         </h4>
-
 
         <h3 className="text-2xl font-bold mt-4 text-center bg-red-800 dark:bg-red-900 dark:text-white text-white p-1 rounded-xl shadow-md">
           ALERTAS
@@ -189,7 +205,7 @@ useEffect(() => {
                   <CheckCircle size={24} className="text-green-600 dark:text-white" />
                   <h4 className="text-lg font-bold">{m.titulo}</h4>
                 </div>
-                
+
                 <p className="text-xs text-right text-gray-600 dark:text-gray-300 mb-2">
                   Criado em {m.dataCriacaoFormata}
                 </p>
